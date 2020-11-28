@@ -1,0 +1,75 @@
+buildscript {
+    ext {
+        repos = {
+            gradlePluginPortal()
+            mavenLocal()
+            mavenCentral()
+        }
+        lombokVersion = '1.18.16'
+
+        springBootVersion = '2.3.5.RELEASE'
+        swaggerVersion = '3.0.0'
+
+        guavaVersion = '30.0-jre'
+
+        //plugins
+        pitestVersion = '1.5.2'
+
+        //main class
+        mainClass = 'com.trzewik.base.App'
+        repositories(repos)
+    }
+}
+
+
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'idea'
+    id 'info.solidsoft.pitest' version "$pitestVersion"
+    id 'checkstyle'
+    id 'org.springframework.boot' version "$springBootVersion"
+}
+
+apply from: 'gradle/test.gradle'
+apply from: 'gradle/version.gradle'
+
+group 'com.trzewik.base'
+version gitVersion()
+
+sourceCompatibility = 15
+
+repositories(repos)
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
+
+    implementation "com.google.guava:guava:${guavaVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+checkstyle {
+    toolVersion "8.1"
+}
+
+pitest {
+    junit5PluginVersion = '0.12'
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+}
+
+bootJar {
+    mainClassName = "$mainClass"
+    manifest {
+        attributes 'Start-Class': "$mainClass"
+    }
+    launchScript()
+}
+
+bootRun {
+    main = "$mainClass"
+}

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  events:
+    build:
+      context: .
+      args:
+        JAR_FILE: ./build/libs/*.jar
+
+    image: events
+    ports:
+      - 8080:8080

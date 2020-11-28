@@ -1,0 +1,36 @@
+buildscript {
+    ext {
+        groovyVersion = '3.0.6'
+        spockVersion = '2.0-M4-groovy-3.0'
+        restAssuredVersion = '4.3.2'
+        archunitVersion = '0.14.1'
+    }
+    repositories (repos)
+}
+
+sourceSets {
+    test.groovy.srcDirs(
+            "src/test/unit",
+            "src/test/integration",
+            "src/test/functional",
+            "src/test/commons"
+    )
+}
+
+dependencies {
+    testImplementation "org.codehaus.groovy:groovy-all:${groovyVersion}"
+
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
+    testImplementation "org.spockframework:spock-spring:${spockVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+
+    testImplementation "com.tngtech.archunit:archunit:${archunitVersion}"
+}
+
+idea {
+    module {
+        test
+    }
+}
