@@ -4,6 +4,8 @@ buildscript {
         spockVersion = '2.0-M4-groovy-3.0'
         restAssuredVersion = '4.3.2'
         archunitVersion = '0.14.1'
+        awaitilityVersion = '4.0.3'
+        kafkaTestClientsVersion = '0.0.2'
     }
     repositories (repos)
 }
@@ -23,6 +25,11 @@ dependencies {
     testImplementation "org.spockframework:spock-core:${spockVersion}"
     testImplementation "org.spockframework:spock-spring:${spockVersion}"
 
+    testImplementation "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
+    testImplementation "io.github.czeffik:kafka-test-clients:${kafkaTestClientsVersion}"
+
+    testImplementation "org.awaitility:awaitility:${awaitilityVersion}"
+
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
 
@@ -33,4 +40,8 @@ idea {
     module {
         test
     }
+}
+
+test{
+    useJUnitPlatform()
 }

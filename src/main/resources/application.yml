@@ -1,6 +1,13 @@
 spring:
   application:
     name: events
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: events-applicationg-group
+input:
+  topic:
+    information: information_topic
 server:
   port: 8080
   tomcat:

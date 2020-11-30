@@ -21,7 +21,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.priority
 
 class ArchitectureUT extends Specification {
-    static final String BASE_PACKAGE = 'com.trzewik.base'
+    static final String BASE_PACKAGE = 'io.github.czeffik.events'
     static final String DOMAIN_PACKAGE = "${BASE_PACKAGE}.domain"
     static final String INFRASTRUCTURE_PACKAGE = "${BASE_PACKAGE}.infrastructure"
     static final String INTERFACES_PACKAGE = "${BASE_PACKAGE}.interfaces"
