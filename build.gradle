@@ -10,13 +10,15 @@ buildscript {
         springBootVersion = '2.3.5.RELEASE'
         swaggerVersion = '3.0.0'
 
+        springKafkaVersion = '2.6.3'
+
         guavaVersion = '30.0-jre'
 
         //plugins
         pitestVersion = '1.5.2'
 
         //main class
-        mainClass = 'com.trzewik.base.App'
+        mainClass = 'io.github.czeffik.events.App'
         repositories(repos)
     }
 }
@@ -34,7 +36,7 @@ plugins {
 apply from: 'gradle/test.gradle'
 apply from: 'gradle/version.gradle'
 
-group 'com.trzewik.base'
+group 'io.github.czeffik.events'
 version gitVersion()
 
 sourceCompatibility = 15
@@ -44,6 +46,8 @@ repositories(repos)
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
+
+    implementation "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
 
     implementation "com.google.guava:guava:${guavaVersion}"
 
