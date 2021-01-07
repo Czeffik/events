@@ -12,6 +12,8 @@ import java.time.Instant;
 @Getter
 @Builder
 public class InformationWithPriceEvent implements InformationEvent {
+    @Builder.Default
+    private final String eventId = RandomUtil.getRandomId();
     private final @NonNull Instant timestamp;
     private final @NonNull String id;
     private final @NonNull String name;
