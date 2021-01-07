@@ -2,6 +2,7 @@ package io.github.czeffik.events.interfaces.kafka
 
 import io.github.czeffik.events.TimeHelper
 import io.github.czeffik.events.domain.information.InformationEventPublisher
+import io.github.czeffik.events.infrastructure.MockedInfrastructureTestConfig
 import io.github.czeffik.events.interfaces.kafka.information.InformationDto
 import io.github.czeffik.kafka.test.clients.helper.KafkaTestHelper
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,7 +18,7 @@ import spock.lang.Specification
     classes = [
         KafkaInterfacesConfiguration.class,
         KafkaTestConfig.class,
-        InformationConsumerTestConfig.class
+        MockedInfrastructureTestConfig.class
     ]
 )
 @TestPropertySource(
