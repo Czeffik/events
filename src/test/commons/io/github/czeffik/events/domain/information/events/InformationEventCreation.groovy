@@ -43,5 +43,10 @@ trait InformationEventCreation {
         Instant getTimestamp() {
             return Instant.now()
         }
+
+        @Override
+        String getId() {
+            return 'FAKE_EVENT_ID'
+        }
     }
 }
