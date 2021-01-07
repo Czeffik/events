@@ -5,6 +5,8 @@ import io.github.czeffik.events.domain.information.events.InformationUpdateRecei
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @NoArgsConstructor
 public class InformationDto {
@@ -12,7 +14,12 @@ public class InformationDto {
     private String name;
     private String description;
 
-    public InformationEvent toInformationUpdateReceivedEvent() {
-        return new InformationUpdateReceivedEvent();
+    public InformationEvent toInformationUpdateReceivedEvent(final Instant timestamp) {
+        return new InformationUpdateReceivedEvent(
+            timestamp,
+            this.id,
+            this.name,
+            this.description
+        );
     }
 }

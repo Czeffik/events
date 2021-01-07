@@ -10,13 +10,18 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import java.time.Clock;
 import java.util.Map;
 
 @Configuration
 public class InformationListenerConfiguration {
+
     @Bean
-    InformationConsumer informationConsumer(InformationEventPublisher informationEventPublisher) {
-        return new InformationConsumer(informationEventPublisher);
+    InformationConsumer informationConsumer(
+        InformationEventPublisher informationEventPublisher,
+        Clock clock
+    ) {
+        return new InformationConsumer(informationEventPublisher, clock);
     }
 
     @Bean
