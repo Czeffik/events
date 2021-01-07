@@ -5,4 +5,6 @@ import java.time.Instant;
 public interface InformationEvent {
 
     Instant getTimestamp();
+
+    String getId();
 }
