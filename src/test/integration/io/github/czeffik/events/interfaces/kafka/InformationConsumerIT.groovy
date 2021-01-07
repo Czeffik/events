@@ -1,7 +1,6 @@
 package io.github.czeffik.events.interfaces.kafka
 
 import io.github.czeffik.events.domain.information.InformationEventPublisher
-import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent
 import io.github.czeffik.events.interfaces.kafka.information.InformationDto
 import io.github.czeffik.kafka.test.clients.helper.KafkaTestHelper
 import org.springframework.beans.factory.annotation.Autowired
@@ -47,6 +46,12 @@ class InformationConsumerIT extends Specification {
         when:
             informationTopicHelper.sendMessageAndWaitToAppear(incomingInformation.getId(), incomingInformation)
         then:
-            1 * informationEventPublisherMock.publish(_ as InformationUpdateReceivedEvent)
+            1 * informationEventPublisherMock.publish({ event ->
+                assert event.id == incomingInformation.id
+                assert event.name == incomingInformation.name
+                assert event.description == incomingInformation.description
+                assert event.timestamp == InformationConsumerTestConfig.FIXED_TIMESTAMP
+                return event
+            })
     }
 }
