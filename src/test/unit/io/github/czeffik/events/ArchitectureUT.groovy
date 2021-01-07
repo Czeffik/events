@@ -71,13 +71,6 @@ class ArchitectureUT extends Specification {
             rule.check(domainClasses)
     }
 
-    def 'domain fields should be final'() {
-        given:
-            def rule = fields().should().beFinal()
-        expect:
-            rule.check(domainClasses)
-    }
-
     def 'all fields should be private'() {
         given:
             def rule = fields()
@@ -138,11 +131,13 @@ class ArchitectureUT extends Specification {
         }
     }
 
-    DescribedPredicate<JavaAnnotation> getOtherAnnotations(String description, String[] packageNames) {
+    DescribedPredicate<JavaAnnotation> getOtherAnnotations(String description, String[] allowedPackages) {
         return new DescribedPredicate<JavaAnnotation>(description) {
             @Override
             boolean apply(JavaAnnotation input) {
-                return packageNames.any { packageName -> !input.rawType.packageName.startsWith(packageName) }
+                return !allowedPackages.any { packageName ->
+                    input.rawType.packageName.startsWith(packageName)
+                }
             }
         }
     }
