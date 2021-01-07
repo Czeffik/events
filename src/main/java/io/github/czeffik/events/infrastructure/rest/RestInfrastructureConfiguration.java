@@ -9,6 +9,6 @@ public class RestInfrastructureConfiguration {
 
     @Bean
     InformationPriceEnricher informationPriceEnricher() {
-        return id -> null;
+        return new FakeInformationPriceEnricher();
     }
 }
