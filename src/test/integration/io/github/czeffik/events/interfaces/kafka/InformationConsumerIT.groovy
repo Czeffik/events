@@ -2,6 +2,7 @@ package io.github.czeffik.events.interfaces.kafka
 
 import io.github.czeffik.events.TimeHelper
 import io.github.czeffik.events.domain.information.InformationEventPublisher
+import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent
 import io.github.czeffik.events.infrastructure.MockedInfrastructureTestConfig
 import io.github.czeffik.events.interfaces.kafka.information.InformationDto
 import io.github.czeffik.kafka.test.clients.helper.KafkaTestHelper
@@ -48,11 +49,12 @@ class InformationConsumerIT extends Specification {
         when:
             informationTopicHelper.sendMessageAndWaitToAppear(incomingInformation.getId(), incomingInformation)
         then:
-            1 * informationEventPublisherMock.publish({ event ->
+            1 * informationEventPublisherMock.publish({ InformationUpdateReceivedEvent event ->
                 assert event.id == incomingInformation.id
                 assert event.name == incomingInformation.name
                 assert event.description == incomingInformation.description
                 assert event.timestamp == TimeHelper.FIXED_TIMESTAMP
+                assert event.eventId
                 return event
             })
     }

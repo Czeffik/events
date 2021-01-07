@@ -7,4 +7,6 @@ public interface InformationEvent {
     Instant getTimestamp();
 
     String getId();
+
+    String getEventId();
 }
