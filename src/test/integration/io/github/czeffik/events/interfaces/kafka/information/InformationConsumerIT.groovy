@@ -1,10 +1,12 @@
-package io.github.czeffik.events.interfaces.kafka
+package io.github.czeffik.events.interfaces.kafka.information
 
 import io.github.czeffik.events.TimeHelper
 import io.github.czeffik.events.domain.information.InformationEventPublisher
 import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent
 import io.github.czeffik.events.infrastructure.MockedInfrastructureTestConfig
-import io.github.czeffik.events.interfaces.kafka.information.InformationDto
+import io.github.czeffik.events.interfaces.kafka.EmbeddedKafkaTest
+import io.github.czeffik.events.interfaces.kafka.KafkaInterfacesConfiguration
+import io.github.czeffik.events.interfaces.kafka.KafkaTestConfig
 import io.github.czeffik.kafka.test.clients.helper.KafkaTestHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
