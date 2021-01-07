@@ -1,4 +1,4 @@
-package io.github.czeffik.events.infrastructure.app.listener;
+package io.github.czeffik.events.interfaces.app.information;
 
 import io.github.czeffik.events.domain.information.InformationService;
 import org.springframework.context.annotation.Bean;
