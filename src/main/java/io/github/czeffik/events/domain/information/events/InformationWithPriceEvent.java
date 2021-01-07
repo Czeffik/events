@@ -1,7 +1,8 @@
 package io.github.czeffik.events.domain.information.events;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -9,11 +10,11 @@ import java.time.Instant;
 
 @ToString
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class InformationWithPriceEvent implements InformationEvent {
-    private final Instant timestamp;
-    private final String id;
-    private final String name;
-    private final String description;
-    private final BigDecimal price;
+    private final @NonNull Instant timestamp;
+    private final @NonNull String id;
+    private final @NonNull String name;
+    private final @NonNull String description;
+    private final @NonNull BigDecimal price;
 }

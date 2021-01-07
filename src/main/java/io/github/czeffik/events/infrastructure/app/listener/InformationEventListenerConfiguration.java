@@ -1,6 +1,5 @@
 package io.github.czeffik.events.infrastructure.app.listener;
 
-import io.github.czeffik.events.domain.information.InformationEventPublisher;
 import io.github.czeffik.events.domain.information.InformationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +9,8 @@ public class InformationEventListenerConfiguration {
 
     @Bean
     public InformationEventListener informationEventListener(
-        InformationEventPublisher informationEventPublisher,
         InformationService informationService
     ) {
-        return new InformationEventListener(informationEventPublisher, informationService);
+        return new InformationEventListener(informationService);
     }
 }

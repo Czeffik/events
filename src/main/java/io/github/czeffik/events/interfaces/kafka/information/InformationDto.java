@@ -15,11 +15,11 @@ public class InformationDto {
     private String description;
 
     public InformationEvent toInformationUpdateReceivedEvent(final Instant timestamp) {
-        return new InformationUpdateReceivedEvent(
-            timestamp,
-            this.id,
-            this.name,
-            this.description
-        );
+        return InformationUpdateReceivedEvent.builder()
+            .timestamp(timestamp)
+            .id(this.id)
+            .name(this.name)
+            .description(this.description)
+            .build();
     }
 }
