@@ -1,14 +1,15 @@
-package io.github.czeffik.events.infrastructure.app.publisher;
+package io.github.czeffik.events.infrastructure.app.information;
 
 import io.github.czeffik.events.domain.information.events.InformationEvent;
 import io.github.czeffik.events.domain.information.InformationEventPublisher;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 
 @Slf4j
-@RequiredArgsConstructor
-public class EventPublisher implements InformationEventPublisher {
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+class EventPublisher implements InformationEventPublisher {
     private final ApplicationEventPublisher publisher;
 
     @Override

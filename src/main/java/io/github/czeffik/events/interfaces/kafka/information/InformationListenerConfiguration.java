@@ -17,7 +17,7 @@ import java.util.Map;
 public class InformationListenerConfiguration {
 
     @Bean
-    InformationConsumer informationConsumer(
+    public InformationConsumer informationConsumer(
         InformationEventPublisher informationEventPublisher,
         Clock clock
     ) {
@@ -25,7 +25,7 @@ public class InformationListenerConfiguration {
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, InformationDto> informationKafkaListenerFactory(
+    public ConcurrentKafkaListenerContainerFactory<String, InformationDto> informationKafkaListenerFactory(
         ConsumerFactory<String, InformationDto> consumerFactory
     ) {
         ConcurrentKafkaListenerContainerFactory<String, InformationDto> cklcf =
@@ -38,7 +38,7 @@ public class InformationListenerConfiguration {
     }
 
     @Bean
-    ConsumerFactory<String, InformationDto> consumerFactory(KafkaProperties kafkaProperties) {
+    public ConsumerFactory<String, InformationDto> consumerFactory(KafkaProperties kafkaProperties) {
         Map<String, Object> config = kafkaProperties.buildConsumerProperties();
 
         return new DefaultKafkaConsumerFactory<>(

@@ -1,18 +1,12 @@
-package io.github.czeffik.events.infrastructure.app;
+package io.github.czeffik.events.infrastructure.app.information;
 
 import io.github.czeffik.events.domain.information.InformationEventPublisher;
-import io.github.czeffik.events.infrastructure.app.listener.InformationEventListenerConfiguration;
-import io.github.czeffik.events.infrastructure.app.publisher.EventPublisher;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-@Import({
-    InformationEventListenerConfiguration.class
-})
 @Configuration
-public class AppConfiguration {
+public class InformationEventPublisherConfiguration {
 
     @Bean
     public InformationEventPublisher informationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {

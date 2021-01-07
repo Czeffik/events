@@ -13,7 +13,7 @@ import java.time.Clock;
 public class DomainConfiguration {
 
     @Bean
-    InformationService informationService(
+    public InformationService informationService(
         final Clock clock,
         final InformationPriceEnricher informationPriceEnricher,
         final InformationEventPublisher informationEventPublisher
