@@ -9,7 +9,6 @@ public class InformationEventStoreConfiguration {
 
     @Bean
     public InformationEventStore informationEventStore() {
-        return event -> {
-        };
+        return new InMemoryInformationEventStore();
     }
 }
