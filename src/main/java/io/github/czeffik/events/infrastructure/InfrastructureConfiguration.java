@@ -1,6 +1,7 @@
 package io.github.czeffik.events.infrastructure;
 
 import io.github.czeffik.events.infrastructure.app.AppInfrastructureConfiguration;
+import io.github.czeffik.events.infrastructure.db.DbConfiguration;
 import io.github.czeffik.events.infrastructure.rest.RestInfrastructureConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,8 @@ import java.time.Clock;
 
 @Import({
     AppInfrastructureConfiguration.class,
-    RestInfrastructureConfiguration.class
+    RestInfrastructureConfiguration.class,
+    DbConfiguration.class
 })
 @Configuration
 public class InfrastructureConfiguration {
