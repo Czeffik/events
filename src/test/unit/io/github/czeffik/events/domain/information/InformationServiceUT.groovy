@@ -2,6 +2,7 @@ package io.github.czeffik.events.domain.information
 
 import io.github.czeffik.events.TimeHelper
 import io.github.czeffik.events.domain.information.events.InformationEventCreation
+import io.github.czeffik.events.domain.information.events.InformationWithPriceEvent
 import spock.lang.Specification
 
 class InformationServiceUT extends Specification implements InformationEventCreation, InformationPriceCreation {
@@ -27,12 +28,14 @@ class InformationServiceUT extends Specification implements InformationEventCrea
             service.enrichPrice(event)
         then:
             1 * priceEnricher.enrich(event.id) >> informationPrice
-            1 * publisher.publish({ published ->
+            1 * publisher.publish({ InformationWithPriceEvent published ->
                 assert published.id == event.id
                 assert published.name == event.name
                 assert published.description == event.description
                 assert published.price == informationPrice.price
                 assert published.timestamp == TimeHelper.FIXED_TIMESTAMP
+                assert published.eventId
+                assert published.eventId != event.eventId
                 return published
             })
     }

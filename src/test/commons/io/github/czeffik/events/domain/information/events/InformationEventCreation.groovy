@@ -9,32 +9,32 @@ trait InformationEventCreation {
     }
 
     InformationUpdateReceivedEvent createUpdateReceivedEvent() {
-        return new InformationUpdateReceivedEvent(
-            Instant.now(),
-            'UPDATE_RECEIVED_ID',
-            'UPDATE_RECEIVED_NAME',
-            'UPDATE_RECEIVED_DESCRIPTION'
-        )
+        return InformationUpdateReceivedEvent.builder()
+            .timestamp(Instant.now())
+            .id('UPDATE_RECEIVED_ID')
+            .name('UPDATE_RECEIVED_NAME')
+            .description('UPDATE_RECEIVED_DESCRIPTION')
+            .build()
     }
 
     InformationWithPriceEvent createWithPriceEvent() {
-        return new InformationWithPriceEvent(
-            Instant.now(),
-            'UPDATE_RECEIVED_ID',
-            'UPDATE_RECEIVED_NAME',
-            'UPDATE_RECEIVED_DESCRIPTION',
-            BigDecimal.TEN
-        )
+        return InformationWithPriceEvent.builder()
+            .timestamp(Instant.now())
+            .id('INFORMATION_WITH_PRICE_ID')
+            .name('INFORMATION_WITH_PRICE_NAME')
+            .description('INFORMATION_WITH_PRICE_DESCRIPTION')
+            .price(BigDecimal.TEN)
+            .build()
     }
 
     InformationWithPriceEvent createWithPriceEvent(InformationUpdateReceivedEvent event) {
-        return new InformationWithPriceEvent(
-            Instant.now(),
-            event.id,
-            event.name,
-            event.description,
-            BigDecimal.TEN
-        )
+        return InformationWithPriceEvent.builder()
+            .timestamp(Instant.now())
+            .id(event.id)
+            .name(event.name)
+            .description(event.description)
+            .price(BigDecimal.TEN)
+            .build()
     }
 
     static class FakeEvent implements InformationEvent {
@@ -47,6 +47,11 @@ trait InformationEventCreation {
         @Override
         String getId() {
             return 'FAKE_EVENT_ID'
+        }
+
+        @Override
+        String getEventId() {
+            return UUID.randomUUID().toString()
         }
     }
 }
