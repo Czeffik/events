@@ -10,8 +10,3 @@ input:
     information: information_topic
 server:
   port: 8080
-  tomcat:
-    accesslog:
-      enabled: true
-      directory: logs
-    basedir: ./tomcat

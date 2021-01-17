@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 
 @Import({
     RestConfiguration.class,
-    KafkaInterfacesConfiguration.class,
+//    KafkaInterfacesConfiguration.class,
     AppInterfacesConfiguration.class
 })
 @Configuration

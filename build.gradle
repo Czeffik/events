@@ -9,6 +9,7 @@ buildscript {
 
         springBootVersion = '2.3.5.RELEASE'
         swaggerVersion = '3.0.0'
+        reactorVersion = '3.4.2'
 
         springKafkaVersion = '2.6.3'
 
@@ -44,8 +45,10 @@ sourceCompatibility = 15
 repositories(repos)
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+//    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
     implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
+    implementation "io.projectreactor:reactor-core:${reactorVersion}"
 
     implementation "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
 
