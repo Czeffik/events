@@ -30,24 +30,24 @@ class InformationEventListenerIT extends Specification implements InformationEve
     @Autowired
     ApplicationEventPublisher applicationEventPublisher
 
-    def 'when receive information update received event then should enrich price and store update event'() {
+    def 'when receive information start processing event then should enrich price and store information start processing event'() {
         given:
-            def updateEvent = createUpdateReceivedEvent()
+            def startProcessingEvent = createStartProcessingEvent()
         when:
-            applicationEventPublisher.publishEvent(updateEvent)
+            applicationEventPublisher.publishEvent(startProcessingEvent)
         then:
-            1 * informationServiceMock.enrichPrice(updateEvent)
+            1 * informationServiceMock.enrichPrice(startProcessingEvent)
         and:
-            1 * informationEventStoreMock.store(updateEvent)
+            1 * informationEventStoreMock.store(startProcessingEvent)
     }
 
-    def 'when receive information with price event then should store information with price event'() {
+    def 'when receive price enriched event then should store price enriched event'() {
         given:
-            def withPriceEvent = createWithPriceEvent()
+            def priceEnrichedEvent = createPriceEnrichedEvent()
         when:
-            applicationEventPublisher.publishEvent(withPriceEvent)
+            applicationEventPublisher.publishEvent(priceEnrichedEvent)
         then:
-            1 * informationEventStoreMock.store(withPriceEvent)
+            1 * informationEventStoreMock.store(priceEnrichedEvent)
     }
 
     def 'when receive FAKE event then should do nothing'() {

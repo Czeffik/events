@@ -1,7 +1,7 @@
 package io.github.czeffik.events.domain.information;
 
-import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent;
-import io.github.czeffik.events.domain.information.events.InformationWithPriceEvent;
+import io.github.czeffik.events.domain.information.events.PriceEnrichedEvent;
+import io.github.czeffik.events.domain.information.events.StartProcessingEvent;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -20,27 +20,30 @@ public interface InformationPriceEnricher {
         private final String id;
         private final BigDecimal price;
 
-        public InformationWithPriceEvent toInformationWithPriceEvent(
-            final InformationUpdateReceivedEvent event,
+        public PriceEnrichedEvent toPriceEnrichedEvent(
+            final StartProcessingEvent event,
             final Instant timestamp
         ) {
             if (idsAreDifferent(event)) {
                 throw new DataInconsistenciesException(
-                    String.format("Information price id: %s is not equal event id: %s!", this.id, event.getId())
+                    String.format("Information price id: %s is not equal information id: %s!",
+                        this.id, event.getInformation().getId())
                 );
             }
 
-            return InformationWithPriceEvent.builder()
+            return PriceEnrichedEvent.builder()
                 .timestamp(timestamp)
-                .id(event.getId())
-                .description(event.getDescription())
-                .name(event.getName())
-                .price(this.price)
+                .information(InformationService.InformationWithPrice.builder()
+                    .id(event.getInformation().getId())
+                    .description(event.getInformation().getDescription())
+                    .name(event.getInformation().getName())
+                    .price(this.price)
+                    .build())
                 .build();
         }
 
-        private boolean idsAreDifferent(InformationUpdateReceivedEvent event) {
-            return !event.getId().equals(this.id);
+        private boolean idsAreDifferent(StartProcessingEvent event) {
+            return !event.getInformation().getId().equals(this.id);
         }
     }
 

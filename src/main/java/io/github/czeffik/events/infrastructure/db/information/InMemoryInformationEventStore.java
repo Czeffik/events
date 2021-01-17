@@ -12,6 +12,6 @@ class InMemoryInformationEventStore implements InformationEventStore {
 
     @Override
     public void store(InformationEvent event) {
-        this.store.put(event.getEventId(), event);
+        this.store.put(event.getId(), event);
     }
 }

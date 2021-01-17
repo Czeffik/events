@@ -1,7 +1,7 @@
 package io.github.czeffik.events.domain.information;
 
-import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent;
-import io.github.czeffik.events.domain.information.events.InformationWithPriceEvent;
+import io.github.czeffik.events.domain.information.events.StartProcessingEvent;
+import io.github.czeffik.events.domain.information.events.PriceEnrichedEvent;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -15,12 +15,13 @@ class InformationServiceImpl implements InformationService {
     private final @NonNull InformationEventPublisher publisher;
 
     @Override
-    public void enrichPrice(InformationUpdateReceivedEvent event) {
-        final InformationPriceEnricher.InformationPrice informationPrice = priceEnricher.enrich(event.getId());
-        final InformationWithPriceEvent eventWithPrice = informationPrice.toInformationWithPriceEvent(
+    public void enrichPrice(StartProcessingEvent event) {
+        final InformationPriceEnricher.InformationPrice informationPrice =
+            priceEnricher.enrich(event.getInformation().getId());
+        final PriceEnrichedEvent priceEnrichedEvent = informationPrice.toPriceEnrichedEvent(
             event,
             clock.instant()
         );
-        publisher.publish(eventWithPrice);
+        publisher.publish(priceEnrichedEvent);
     }
 }

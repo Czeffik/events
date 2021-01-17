@@ -1,7 +1,8 @@
 package io.github.czeffik.events.interfaces.kafka.information;
 
+import io.github.czeffik.events.domain.information.InformationService;
 import io.github.czeffik.events.domain.information.events.InformationEvent;
-import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent;
+import io.github.czeffik.events.domain.information.events.StartProcessingEvent;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,12 +15,15 @@ public class InformationDto {
     private String name;
     private String description;
 
-    public InformationEvent toInformationUpdateReceivedEvent(final Instant timestamp) {
-        return InformationUpdateReceivedEvent.builder()
+    public InformationEvent toStartProcessingEvent(final Instant timestamp) {
+        return StartProcessingEvent.builder()
             .timestamp(timestamp)
-            .id(this.id)
-            .name(this.name)
-            .description(this.description)
+            .information(InformationService.Information
+                .builder()
+                .id(this.id)
+                .name(this.name)
+                .description(this.description)
+                .build())
             .build();
     }
 }

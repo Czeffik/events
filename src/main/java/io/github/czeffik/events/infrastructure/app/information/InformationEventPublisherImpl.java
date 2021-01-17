@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEventPublisher;
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class EventPublisher implements InformationEventPublisher {
+class InformationEventPublisherImpl implements InformationEventPublisher {
     private final ApplicationEventPublisher publisher;
 
     @Override

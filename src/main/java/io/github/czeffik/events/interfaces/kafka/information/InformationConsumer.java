@@ -18,6 +18,6 @@ class InformationConsumer {
     @KafkaListener(topics = "${input.topic.information}", containerFactory = "informationKafkaListenerFactory")
     public void read(ConsumerRecord<String, InformationDto> record) {
         log.info("Consumed information! Key: [{}], information: [{}]!", record.key(), record.value());
-        this.eventPublisher.publish(record.value().toInformationUpdateReceivedEvent(clock.instant()));
+        this.eventPublisher.publish(record.value().toStartProcessingEvent(clock.instant()));
     }
 }

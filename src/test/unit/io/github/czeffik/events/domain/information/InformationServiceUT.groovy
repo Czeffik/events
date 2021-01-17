@@ -2,7 +2,7 @@ package io.github.czeffik.events.domain.information
 
 import io.github.czeffik.events.TimeHelper
 import io.github.czeffik.events.domain.information.events.InformationEventCreation
-import io.github.czeffik.events.domain.information.events.InformationWithPriceEvent
+import io.github.czeffik.events.domain.information.events.PriceEnrichedEvent
 import spock.lang.Specification
 
 class InformationServiceUT extends Specification implements InformationEventCreation, InformationPriceCreation {
@@ -19,39 +19,41 @@ class InformationServiceUT extends Specification implements InformationEventCrea
         )
     }
 
-    def 'when receive update received event should enrich price and publish event with price'() {
+    def 'when receive start processing event should enrich price and publish price enriched event'() {
         given:
-            def event = createUpdateReceivedEvent()
+            def event = createStartProcessingEvent()
         and:
-            def informationPrice = createInformationPrice(event.id)
+            def informationPrice = createInformationPrice(event.information.id)
         when:
             service.enrichPrice(event)
         then:
-            1 * priceEnricher.enrich(event.id) >> informationPrice
-            1 * publisher.publish({ InformationWithPriceEvent published ->
-                assert published.id == event.id
-                assert published.name == event.name
-                assert published.description == event.description
-                assert published.price == informationPrice.price
+            1 * priceEnricher.enrich(event.information.id) >> informationPrice
+        and:
+            1 * publisher.publish({ PriceEnrichedEvent published ->
+                assert published.information.id == event.information.id
+                assert published.information.name == event.information.name
+                assert published.information.description == event.information.description
+                assert published.information.price == informationPrice.price
+
                 assert published.timestamp == TimeHelper.FIXED_TIMESTAMP
-                assert published.eventId
-                assert published.eventId != event.eventId
+                assert published.id
+                assert published.id != event.id
                 return published
             })
     }
 
-    def 'when receive update received event should throw exception when information price id is not same as event id'() {
+    def 'when receive start processing event should throw exception when information price id is not same as information id from event'() {
         given:
-            def event = createUpdateReceivedEvent()
+            def event = createStartProcessingEvent()
         and:
             def informationPrice = createInformationPrice()
         when:
             service.enrichPrice(event)
         then:
-            1 * priceEnricher.enrich(event.id) >> informationPrice
+            1 * priceEnricher.enrich(event.information.id) >> informationPrice
         and:
             InformationPriceEnricher.DataInconsistenciesException ex = thrown()
-            ex.message == "Information price id: ${informationPrice.id} is not equal event id: ${event.id}!"
+            ex.message == "Information price id: ${informationPrice.id} is not equal information id: ${event.information.id}!"
     }
 
     def 'should throw IllegalArgumentException when creating InformationService and clock is null'() {

@@ -1,39 +1,28 @@
 package io.github.czeffik.events.domain.information.events
 
+import io.github.czeffik.events.domain.information.InformationCreation
+
 import java.time.Instant
 
-trait InformationEventCreation {
+trait InformationEventCreation implements InformationCreation {
 
     InformationEvent createFakeEvent() {
         return new FakeEvent()
     }
 
-    InformationUpdateReceivedEvent createUpdateReceivedEvent() {
-        return InformationUpdateReceivedEvent.builder()
+    StartProcessingEvent createStartProcessingEvent() {
+        return StartProcessingEvent.builder()
             .timestamp(Instant.now())
-            .id('UPDATE_RECEIVED_ID')
-            .name('UPDATE_RECEIVED_NAME')
-            .description('UPDATE_RECEIVED_DESCRIPTION')
+            .id('START_PROCESSING_EVENT_ID')
+            .information(createInformation())
             .build()
     }
 
-    InformationWithPriceEvent createWithPriceEvent() {
-        return InformationWithPriceEvent.builder()
+    PriceEnrichedEvent createPriceEnrichedEvent() {
+        return PriceEnrichedEvent.builder()
             .timestamp(Instant.now())
-            .id('INFORMATION_WITH_PRICE_ID')
-            .name('INFORMATION_WITH_PRICE_NAME')
-            .description('INFORMATION_WITH_PRICE_DESCRIPTION')
-            .price(BigDecimal.TEN)
-            .build()
-    }
-
-    InformationWithPriceEvent createWithPriceEvent(InformationUpdateReceivedEvent event) {
-        return InformationWithPriceEvent.builder()
-            .timestamp(Instant.now())
-            .id(event.id)
-            .name(event.name)
-            .description(event.description)
-            .price(BigDecimal.TEN)
+            .id('PRICE_ENRICHED_EVENT_ID')
+            .information(createInformationWithPrice())
             .build()
     }
 
@@ -47,11 +36,6 @@ trait InformationEventCreation {
         @Override
         String getId() {
             return 'FAKE_EVENT_ID'
-        }
-
-        @Override
-        String getEventId() {
-            return UUID.randomUUID().toString()
         }
     }
 }

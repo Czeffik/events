@@ -1,5 +1,6 @@
 package io.github.czeffik.events.domain.information.events;
 
+import io.github.czeffik.events.domain.information.InformationService;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -10,11 +11,9 @@ import java.time.Instant;
 @ToString
 @Getter
 @Builder
-public class InformationUpdateReceivedEvent implements InformationEvent {
+public class StartProcessingEvent implements InformationEvent {
     @Builder.Default
-    private final String eventId = RandomUtil.getRandomId();
+    private final @NonNull String id = RandomUtil.getRandomId();
     private final @NonNull Instant timestamp;
-    private final @NonNull String id;
-    private final @NonNull String name;
-    private final @NonNull String description;
+    private final @NonNull InformationService.Information information;
 }

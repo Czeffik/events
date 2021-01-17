@@ -10,6 +10,6 @@ public class InformationEventPublisherConfiguration {
 
     @Bean
     public InformationEventPublisher informationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        return new EventPublisher(applicationEventPublisher);
+        return new InformationEventPublisherImpl(applicationEventPublisher);
     }
 }

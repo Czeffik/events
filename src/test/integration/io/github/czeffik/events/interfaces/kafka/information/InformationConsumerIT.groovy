@@ -2,7 +2,7 @@ package io.github.czeffik.events.interfaces.kafka.information
 
 import io.github.czeffik.events.TimeHelper
 import io.github.czeffik.events.domain.information.InformationEventPublisher
-import io.github.czeffik.events.domain.information.events.InformationUpdateReceivedEvent
+import io.github.czeffik.events.domain.information.events.StartProcessingEvent
 import io.github.czeffik.events.infrastructure.MockedInfrastructureTestConfig
 import io.github.czeffik.events.interfaces.kafka.EmbeddedKafkaTest
 import io.github.czeffik.events.interfaces.kafka.KafkaInterfacesConfiguration
@@ -45,18 +45,18 @@ class InformationConsumerIT extends Specification {
         kafkaListenerEndpointRegistry.getListenerContainers().each { ContainerTestUtils.waitForAssignment(it, EmbeddedKafkaTest.PARTITIONS) }
     }
 
-    def 'should consume message and publish InformationUpdateReceivedEvent'() {
+    def 'should consume message and publish StartProcessingEvent'() {
         given:
             def incomingInformation = new InformationDto(id: 'id', name: 'name', description: 'description')
         when:
             informationTopicHelper.sendMessageAndWaitToAppear(incomingInformation.getId(), incomingInformation)
         then:
-            1 * informationEventPublisherMock.publish({ InformationUpdateReceivedEvent event ->
-                assert event.id == incomingInformation.id
-                assert event.name == incomingInformation.name
-                assert event.description == incomingInformation.description
+            1 * informationEventPublisherMock.publish({ StartProcessingEvent event ->
+                assert event.information.id == incomingInformation.id
+                assert event.information.name == incomingInformation.name
+                assert event.information.description == incomingInformation.description
                 assert event.timestamp == TimeHelper.FIXED_TIMESTAMP
-                assert event.eventId
+                assert event.id
                 return event
             })
     }

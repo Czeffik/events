@@ -29,7 +29,7 @@ class InformationEventPublisherIT extends Specification implements InformationEv
 
     def 'should publish information event'() {
         given:
-            def event = createWithPriceEvent()
+            def event = createPriceEnrichedEvent()
         when:
             informationEventPublisher.publish(event)
         then:
@@ -39,9 +39,9 @@ class InformationEventPublisherIT extends Specification implements InformationEv
     def 'should publish multiple information events'() {
         given:
             def events = [
-                createWithPriceEvent(),
+                createPriceEnrichedEvent(),
                 createFakeEvent(),
-                createUpdateReceivedEvent()
+                createStartProcessingEvent()
             ]
         when:
             informationEventPublisher.publish(events)
