@@ -11,7 +11,6 @@ class EmitterStoreImpl<T> implements EmitterStore<T> {
     @Override
     public void add(Consumer<T> emitter) {
         emitters.add(emitter);
-//        emitter.onDispose(() -> this.remove(emitter));
     }
 
     @Override

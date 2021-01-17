@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Events table</title>
+</head>
+
+<body style="text-align: center">
+
+<div style="font-weight: bold; font-size: large ">Server Site Events</div>
+<br/>
+<div>
+    <table id="events" style="width: 100%; table-layout: auto">
+        <thead>
+            <tr>
+                <th>Event type</th>
+                <th>Event id</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody id="eventsBody"></tbody>
+    </table>
+</div>
+<br/>
+<div>Event:
+    <button onclick="sendEvent()">Send</button>
+</div>
+<script>
+    var table = document.getElementById("eventsBody");
+    var eventSource = new EventSource("/events");
+
+    consumeEvent("StartProcessingEvent");
+    consumeEvent("PriceEnrichedEvent");
+
+    function consumeEvent(type) {
+        eventSource.addEventListener(type, function (event) {
+            var row = table.insertRow();
+
+            var eventType = row.insertCell(0);
+            var eventId = row.insertCell(1);
+            var eventData = row.insertCell(2);
+
+            eventType.textContent = event.type
+            eventId.textContent = event.lastEventId
+            eventData.textContent = event.data
+        });
+    }
+
+    function sendEvent() {
+        fetch("/emit", {method: "GET"});
+    }
+</script>
+</body>
+</html>

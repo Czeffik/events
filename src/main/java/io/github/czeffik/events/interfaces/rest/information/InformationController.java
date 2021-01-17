@@ -21,7 +21,7 @@ class InformationController {
     private final InformationEventPublisher publisher;
 
     @GetMapping("/emit")
-    public String emit(){
+    public String emit() {
         Instant now = Instant.now();
         StartProcessingEvent event = StartProcessingEvent.builder()
             .timestamp(now)
@@ -36,13 +36,13 @@ class InformationController {
     }
 
     @GetMapping("/events")
-    public Flux<ServerSentEvent<InformationDto>> events(){
+    public Flux<ServerSentEvent<InformationDto>> events() {
         return Flux.create(sink -> this.emitterStore.add(sink::next), FluxSink.OverflowStrategy.LATEST)
             .map(event -> {
                 InformationEvent informationEvent = (InformationEvent) event;
                 return ServerSentEvent.<InformationDto>builder()
                     .id(informationEvent.getId())
-                    .event(informationEvent.getTimestamp().toString() + "EVENT TYPE: " + event.getClass())
+                    .event(informationEvent.getClass().getSimpleName())
                     .data(InformationDto.from(informationEvent))
                     .build();
             });

@@ -14,11 +14,11 @@ public class InformationDto {
     private final String name;
     private final BigDecimal price;
 
-    public static InformationDto from(InformationEvent event){
-        if (event instanceof StartProcessingEvent){
+    public static InformationDto from(InformationEvent event) {
+        if (event instanceof StartProcessingEvent) {
             return from((StartProcessingEvent) event);
         }
-        if (event instanceof PriceEnrichedEvent){
+        if (event instanceof PriceEnrichedEvent) {
             return from((PriceEnrichedEvent) event);
         }
         throw new RuntimeException("");
