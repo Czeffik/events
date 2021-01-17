@@ -7,13 +7,12 @@ buildscript {
         }
         lombokVersion = '1.18.16'
 
-        springBootVersion = '2.3.5.RELEASE'
+        springBootVersion = '2.4.2'
         swaggerVersion = '3.0.0'
-        reactorVersion = '3.4.2'
 
-        springKafkaVersion = '2.6.3'
+        springKafkaVersion = '2.6.5'
 
-        guavaVersion = '30.0-jre'
+        guavaVersion = '30.1-jre'
 
         //plugins
         pitestVersion = '1.5.2'
@@ -47,7 +46,6 @@ repositories(repos)
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
     implementation "io.springfox:springfox-boot-starter:${swaggerVersion}"
-    implementation "io.projectreactor:reactor-core:${reactorVersion}"
 
     implementation "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
 
