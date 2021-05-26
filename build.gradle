@@ -5,17 +5,17 @@ buildscript {
             mavenLocal()
             mavenCentral()
         }
-        lombokVersion = '1.18.16'
+        lombokVersion = '1.18.20'
 
-        springBootVersion = '2.4.2'
+        springBootVersion = '2.5.0'
         swaggerVersion = '3.0.0'
 
-        springKafkaVersion = '2.6.5'
+        springKafkaVersion = '2.7.1'
 
-        guavaVersion = '30.1-jre'
+        guavaVersion = '30.1.1-jre'
 
         //plugins
-        pitestVersion = '1.5.2'
+        pitestVersion = '1.6.0'
 
         //main class
         mainClass = 'io.github.czeffik.events.App'
@@ -39,7 +39,7 @@ apply from: 'gradle/version.gradle'
 group 'io.github.czeffik.events'
 version gitVersion()
 
-sourceCompatibility = 15
+sourceCompatibility = 16
 
 repositories(repos)
 
